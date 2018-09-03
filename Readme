@@ -1,0 +1,9 @@
+1.
+Create a python3 virtual environment (you could skip this)
+virtualenv -p python3 envname
+source envname/bin/activate
+
+2. install all the packages needed. (sklearn, pandas)
+
+pip install sklearn 
+pip install pandas
