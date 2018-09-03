@@ -1,0 +1,2 @@
+id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
+5f9b54d8-38cb-5f07-b391-71cf2aef0f08	21917	case	4dff4242-4a53-4f46-b200-7ed83f6b7808	Neoadjuvant therapy	Notification	2014-09-02T00:00:00	Approved	TSS confirmed during enrollment that patient had chemoembolization prior to cancer procurement.

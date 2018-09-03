@@ -1,0 +1,2 @@
+id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
+9c92cb81-43d1-5d1a-9d27-66f233eef6e8	25400	case	c4c4820b-6f4c-4cdd-b233-4d22f5933fd9	Item may not meet study protocol	Observation	2015-02-05T00:00:00	Approved	The EPC found that the diagnostic slides were not representative of a hepatocellular case, but is representative of the piece sent for TCGA.

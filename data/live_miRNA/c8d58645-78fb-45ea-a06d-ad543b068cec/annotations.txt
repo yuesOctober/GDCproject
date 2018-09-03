@@ -1,0 +1,2 @@
+id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
+cc095f24-6680-5dcb-a8a7-31e08b07c8d9	15997	case	06ac44e9-1226-4202-828b-6f224766d7ac	Prior malignancy	Notification	2013-04-25T00:00:00	Approved	Patient had a prior papillary renal cell carcinoma. No systemic chemotherapy or radiation.

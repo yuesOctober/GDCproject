@@ -1,0 +1,2 @@
+id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
+67cae150-0bdc-51af-926e-7c14d5b6e1dc	15993	case	a196a937-b17d-4d4a-965b-8af0f4f41367	Prior malignancy	Notification	2013-04-25T00:00:00	Approved	Patient had a prior tumor in the back. No systemic chemotherapy or radiation.

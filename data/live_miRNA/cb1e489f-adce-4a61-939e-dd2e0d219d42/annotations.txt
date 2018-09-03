@@ -1,0 +1,2 @@
+id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
+7da3ee04-df24-5faf-987f-6c27b7018bd0	15990	case	cf028bce-d20d-42b8-8507-1ec94a391e85	Prior malignancy	Notification	2013-04-25T00:00:00	Approved	Patient had a prior Wilms tumor. No systemic chemotherapy or radiation.

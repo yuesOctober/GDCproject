@@ -1,0 +1,2 @@
+id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
+0a6862a9-1804-54e8-b7f8-5e8d4c123886	25379	case	dfa15fbe-bb14-40ce-afc6-70694112e3e2	General	Observation	2015-01-30T00:00:00	Approved	Case originally accepted in the liver study, but is not a hepatocellular. This is a Cholangiocarcinoma and will not be removed or change studies, but will be analyzed in the CHOL study and not in the LIHC study.

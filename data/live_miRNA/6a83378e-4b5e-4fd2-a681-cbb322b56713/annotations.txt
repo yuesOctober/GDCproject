@@ -1,0 +1,2 @@
+id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
+f08e1963-04e9-51a9-9911-081f386bba0e	23899	case	59f163d2-6a7c-41b8-b4d6-f07174dafc6e	History of unacceptable prior treatment related to a prior/other malignancy	Notification	2015-01-12T00:00:00	Approved	TSS confirmed the patient had a prior bladder and prostate cancer with an unknown treatment history which is unacceptable for TCGA cases.

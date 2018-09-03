@@ -1,0 +1,2 @@
+id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
+0461d977-252b-5b50-bf3b-34672d1a94d6	28719	case	4db9de75-9297-46e5-acc5-9275f52a642a	Case submitted is found to be a recurrence after submission	Notification	2015-07-17T00:00:00	Approved	During enrollment, the TSS found the patient had surgery 2 months prior to the TCGA cancer procurement.

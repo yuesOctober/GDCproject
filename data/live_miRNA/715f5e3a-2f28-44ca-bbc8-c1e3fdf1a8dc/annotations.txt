@@ -1,0 +1,2 @@
+id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
+8b7edf9c-2d1d-5441-8e20-e1448e9b395a	13897	aliquot	f0452a08-12e7-4ea8-af29-3443ce1decbb	General	Observation	2013-01-15T00:00:00	Approved	This is the correct replacement barcode for RNA aliquot UUID: f0452a08-12e7-4ea8-af29-3443ce1decbb, which  is a replacement aliquot for redacted UUID: 6c8c920d-a2bf-4130-86ad-7ce83dc3fd1c that was found to have inconclusive identity (RNA only).

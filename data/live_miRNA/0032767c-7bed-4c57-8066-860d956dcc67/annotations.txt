@@ -1,0 +1,2 @@
+id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
+ba1d9597-7ba4-589a-8105-88bc96b9efdc	26879	case	fbb398fe-2ba8-4845-8083-6533ecb4a52e	General	Observation	2015-03-04T00:00:00	Approved	Case originally accepted in the liver study, but is a cholongio-liver mix. This case will not be removed or change studies, but will be analyzed in the CHOL study and not in the LIHC study.

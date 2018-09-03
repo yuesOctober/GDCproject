@@ -1,0 +1,2 @@
+id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
+79c23a9f-227f-5a22-80d0-d065000b6216	15994	case	728aedb3-551a-4c16-9be3-7733a9539e9e	History of acceptable prior treatment related to a prior/other malignancy	Notification	2013-04-25T00:00:00	Approved	Patient had a prior prostate adenocarcinoma treated with locoregional radiation. No systemic chemotherapy

@@ -1,0 +1,2 @@
+id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
+0e4b110c-89fe-5cba-802c-7b6fc5946962	15996	case	17833039-0d7e-47f0-90e6-8cabae94c124	Prior malignancy	Notification	2013-04-25T00:00:00	Approved	Patient had a prior papillary transitional cell bladder cancer. No systemic chemotherapy or radiation.
