@@ -1,5 +1,5 @@
 1.
-Create a python3 virtual environment (you could skip this)
+Create a python3 virtual environment 
 virtualenv -p python3 envname
 source envname/bin/activate
 
