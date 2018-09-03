@@ -7,3 +7,4 @@ source envname/bin/activate
 
 pip install sklearn 
 pip install pandas
+Pip install matplotlib
