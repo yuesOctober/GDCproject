@@ -166,14 +166,15 @@ def curlCaseMeta(case_ids,payloadfile,outputfile):
 
 if __name__ == '__main__':
 
-    filename = "file_case_id.csv"
+    data_dir = "/Users/yueshi/Downloads/project/data/"
+    filename = data_dir+"file_case_id_DNA.csv"
     
     
     df = pd.read_csv(filename)
     file_ids = df.file_id.values
     case_ids = df.case_id.values
     # print(case_ids)
-    data_dir = "/Users/yueshi/Downloads/project/data/"
+    
     fileids_meta_outfile = data_dir + "files_meta.tsv"
     caseids_meta_outfile = data_dir + "cases_meta.tsv"
     # python request method

@@ -26,3 +26,4 @@ gen_miRNA_matrix.py: This is to generate the miRNA matrix and labels for all the
 
 predict.py : This is for applying models to the miRNA matrix for normal/ tumor sample detection.
 		python predict.py
+predict_sagemaker.py: This is for running in AWS sagemaker
