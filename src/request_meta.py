@@ -166,8 +166,8 @@ def curlCaseMeta(case_ids,payloadfile,outputfile):
 
 if __name__ == '__main__':
 
-    data_dir = "/Users/yueshi/Downloads/project/data/"
-    filename = data_dir+"file_case_id_DNA.csv"
+    data_dir = "/Users/yueshi/Downloads/GDCProject/data/"
+    filename = data_dir+"file_case_id_brain.csv"
     
     
     df = pd.read_csv(filename)

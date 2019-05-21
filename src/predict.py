@@ -7,17 +7,24 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 import numpy as np
 
-
+from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.feature_selection import SelectFromModel
 from sklearn import datasets
 from sklearn.linear_model import LassoCV
 from sklearn.linear_model import Lasso
 from sklearn.model_selection import KFold
 from sklearn.model_selection import GridSearchCV
-
+from sklearn.feature_selection import VarianceThreshold
 from utils import logger
+from hubgenes import hubSelection
 #def lassoSelection(X,y,)
-
+def extraTreeSelection(X_train,y_train,n):
+	forest = ExtraTreesClassifier(n_estimators=250,random_state=0)
+	forest.fit(X_train, y_train)
+	importances = forest.feature_importances_
+	indices = np.argsort(importances)[::-1]
+	features = [indices[i] for i in range(n)]
+	return features
 def lassoSelection(X_train, y_train, n):
 	'''
 	Lasso feature selection.  Select n features. 
@@ -25,21 +32,29 @@ def lassoSelection(X_train, y_train, n):
 	#lasso feature selection
 	#print (X_train)
 	clf = LassoCV()
-	sfm = SelectFromModel(clf, threshold=0)
+	sfm = SelectFromModel(clf, threshold=-2)
 	sfm.fit(X_train, y_train)
 	X_transform = sfm.transform(X_train)
 	n_features = X_transform.shape[1]
-	
+	print(n_features)
+	print (n)
 	#print(n_features)
 	while n_features > n:
+		print(sfm.threshold)
 		sfm.threshold += 0.01
 		X_transform = sfm.transform(X_train)
 		n_features = X_transform.shape[1]
+		print(n_features)
+	print (n_features)
 	features = [index for index,value in enumerate(sfm.get_support()) if value == True  ]
 	logger.info("selected features are {}".format(features))
 	return features
+def varianceSelection(x_train,y_train):
 
-
+	selector = VarianceThreshold(1.0)
+	selector.fit(x_train)
+	features = selector.get_support(True)
+	return features
 def specificity_score(y_true, y_predict):
 	'''
 	true_negative rate
@@ -130,12 +145,66 @@ def draw(scores):
 	ax.grid()
 	plt.show()
 
+
+
+
+
+
+def getHubFeatures(X_train,y_train):
+	n = 50
+	X_train_tumor= []
+	lasso_features_columns = extraTreeSelection(X_train, y_train, n)
+	feature_mapping = {}
+	for i in range(len(lasso_features_columns)):
+		feature_mapping[i]=lasso_features_columns[i]
+
+	for index in range(len(y_train)):
+		if y_train[index] ==0:
+			X_train_tumor.append(X_train[index])
+	total_tumor = len(X_train_tumor)
+	mixed = int(total_tumor*0.1)
+	count = 0
+	for index in range(len(y_train)):
+
+		if (y_train[index] ==1 & count<=mixed):
+			X_train_tumor.append(X_train[index])
+			count+=1
+	print (X_train_tumor)
+	X_train_tumor = np.array(X_train_tumor)
+	# features_columns = lasso_features_columns
+	# hub_feature_columns = features_columns
+	#hub selection
+	features_columns = hubSelection(X_train_tumor[:,lasso_features_columns])
+	
+	print (features_columns)
+	hub_feature_columns=[]
+	for feature in features_columns:
+		hub_feature_columns.append(lasso_features_columns[feature])
+	return hub_feature_columns
+
+def genSubBatches(X_train,y_train,percentage=0.2,copies=5):
+	tumor_index = np.where(y_train==1)[0]
+	normal_index = np.where(y_train==0)[0]
+	tumor_count = len(tumor_index)
+	normal_count = len(normal_index)
+	picked_tumor_count = (int)(tumor_count*percentage)
+	picked_normal_count = (int)(normal_count*percentage)
+
+	batches = []
+	for i in range(copies):
+		picked_tumor_index = tumor_index[np.random.choice(tumor_count, picked_tumor_count, replace=False) ]
+		picked_normal_index= normal_index[np.random.choice(normal_count, picked_normal_count, replace=False)]
+		picked_index = np.concatenate((picked_tumor_index,picked_normal_index))
+		batches.append([X_train[picked_index],y_train[picked_index]])
+	return batches
+
 if __name__ == '__main__':
 
 
-	data_dir ="/Users/yueshi/Downloads/project/data/"
+	data_dir ="/Users/yueshi/Downloads/GDCproject/data/"
 
-	data_file = data_dir + "miRNA_matrix.csv"
+	# data_file = data_dir + "miRNA_matrix.csv"
+	data_file = data_dir + "merged_miRNA.csv"
 
 	df = pd.read_csv(data_file)
 	# print(df)
@@ -148,8 +217,15 @@ if __name__ == '__main__':
 	X_data = df.values
 	
 	# split the data to train and test set
-	X_train, X_test, y_train, y_test = train_test_split(X_data, y_data, test_size=0.3, random_state=0)
-	
+	X_train, X_test, y_train, y_test = train_test_split(X_data, y_data, test_size=0.7, random_state=0)
+	train_counts = len(X_train)
+	top_percentage = 1
+	#select certain samples :
+	nselected = (int)(top_percentage*train_counts)
+	X_train  = X_train[:nselected]
+	y_train = y_train[:nselected]
+
+	print(y_train)
 
 	#standardize the data.
 	scaler = StandardScaler()
@@ -158,15 +234,85 @@ if __name__ == '__main__':
 	X_test = scaler.transform(X_test)
 
 	# check the distribution of tumor and normal sampels in traing and test data set.
-	logger.info("Percentage of tumor cases in training set is {}".format(sum(y_train)/len(y_train)))
-	logger.info("Percentage of tumor cases in test set is {}".format(sum(y_test)/len(y_test)))
+	logger.info("Percentage of tumor cases in training set is {}".format(float(sum(y_train))/float(len(y_train))))
+	logger.info("Percentage of tumor cases in test set is {}".format(float(sum(y_test))/float(len(y_test))))
 	
-	n = 7
-	feaures_columns = lassoSelection(X_train, y_train, n)
+	total_batches = 2
+	batches = genSubBatches(X_train,y_train,copies = total_batches,percentage=0.2)
+
+	total_hub_feature_columns = getHubFeatures(X_train,y_train)
+	print ("total_hub_feature_columns are:",total_hub_feature_columns)
+	print("hub_feature_columns are {}".format(total_hub_feature_columns))
+	hub_genes = []
+	for i in range(total_batches):
+		print ("batch {} starts".format(i))
+		batch_X_train = batches[i][0]
+		batch_y_train = batches[i][1]
+		batch_hub_features = getHubFeatures(batch_X_train,batch_y_train)
+		hub_genes.append(batch_hub_features)
+	print ("hub_genes are {}".format(hub_genes))
+	# hub_feature_columns = hub_genes[0]
+	# final_
+	hub_feature_columns = []
+	for i in range(total_batches):
+		intersection_hub_feature_columns  = list(set(total_hub_feature_columns).intersection(hub_genes[i]))
+		hub_feature_columns.extend(intersection_hub_feature_columns)
+
+	print (hub_feature_columns)
+	# hub_feature_columns = getHubFeatures(X_train,y_train)
+
+	# n = 50
+	# X_train_tumor= []
+	# X_train_tumor = np.array([X_train[i] for i in range(len(X_train)) if y_train[i]==1])
+	# print (y_train)
+
+	# lasso_features_columns = lassoSelection(X_train, y_train, n)
+	# lasso_features_columns = extraTreeSelection(X_train, y_train, n)
+	
+	# lasso_features_columns = varianceSelection(X_train, y_train)
 
 
 
-	scores = model_fit_predict(X_train[:,feaures_columns],X_test[:,feaures_columns],y_train,y_test)
+	# print (lasso_features_columns)
+	# print(len(lasso_features_columns))
+	# feature_mapping = {}
+	# for i in range(len(lasso_features_columns)):
+	# 	feature_mapping[i]=lasso_features_columns[i]
+
+	# for index in range(len(y_train)):
+	# 	if y_train[index] ==1:
+	# 		X_train_tumor.append(X_train[index])
+
+
+	# X_train_tumor = np.array(X_train_tumor)
+	# print (X_train_tumor)
+
+
+
+	
+	# features_columns = lasso_features_columns
+	# feaures_columns = hubSelection(X_train_tumor)
+
+	'''
+	hub feature columns
+	'''
+	# features_columns = hubSelection(X_train_tumor[:,lasso_features_columns])
+
+
+	# features_columns = [2,22,25,28,45]
+	# hub_feature_columns=[]
+	# for feature in features_columns:
+	# 	hub_feature_columns.append(lasso_features_columns[feature])
+
+
+	'''
+	without hubs
+	'''
+	# hub_feature_columns = lasso_features_columns
+
+
+	# hub_feature_columns = lasso_features_columns
+	scores = model_fit_predict(X_train[:,hub_feature_columns],X_test[:,hub_feature_columns],y_train,y_test)
 
 	draw(scores)
 	#lasso cross validation

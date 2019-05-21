@@ -1,0 +1,2 @@
+id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
+b747281b-5a95-5dbd-9d4a-825041e0a9be	23860	case	c13bac88-c85b-4ee3-a51c-fd503cd7e726	History of unacceptable prior treatment related to a prior/other malignancy	Notification	2014-12-19T00:00:00	Approved	Patient had a prior LGG diagnosis, surgery and radiation to the head. TCGA tumor was resected 10 years later.

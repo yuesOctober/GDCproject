@@ -58,13 +58,13 @@ def extractLabel(inputfile):
 if __name__ == '__main__':
 
 
-	data_dir ="/Users/yueshi/Downloads/project/data/"
+	data_dir ="/Users/yueshi/Downloads/GDCProject/data/"
 	# Input directory and label file. The directory that holds the data. Modify this when use.
-	dirname = data_dir + "live_miRNA"
+	dirname = data_dir + "brain_miRNA"
 	label_file = data_dir + "files_meta.tsv"
 	
 	#output file
-	outputfile = data_dir + "miRNA_matrix.csv"
+	outputfile = data_dir + "brain_miRNA_matrix.csv"
 
 	# extract data
 	matrix_df = extractMatrix(dirname)

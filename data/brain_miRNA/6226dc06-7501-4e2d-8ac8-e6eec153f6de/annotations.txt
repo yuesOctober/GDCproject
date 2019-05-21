@@ -1,0 +1,2 @@
+id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
+e3b2052b-7d4b-5304-9919-4d4234c5118d	23858	case	019c5de9-74fd-48b7-95a3-227532e16c5a	Case submitted is found to be a recurrence after submission	Notification	2014-12-11T00:00:00	Approved	patient had prior LGG malignancy (and complete resection) 5 years prior to TCGA malignancy. No treatment was given prior to procurement of TCGA specimen.
